@@ -1,35 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   put.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfranco- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/06 17:39:17 by lfranco-          #+#    #+#             */
-/*   Updated: 2017/10/06 17:39:17 by lfranco-         ###   ########.fr       */
+/*   Created: 2017/10/01 21:41:31 by lfranco-          #+#    #+#             */
+/*   Updated: 2017/10/01 21:41:32 by lfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+#include "minilibft.h"
 
-#include "../libft/minilibft.h"
-
-typedef struct		s_lemin
+size_t	ft_putstr(char const *s)
 {
-	int				ants;
-	int				flen;
-	char			**file;
-}					t_lemin;
+	return (write(1, (char*)s, ft_strlen(s)));
+}
 
-/*
-** main.c
-*/
-int		main(int ac, char **av);
+void	ft_putnbr(int nb)
+{
+	if (nb == -2147483648)
+	{
+		ft_putstr("-2147483648");
+		return ;
+	}
+	if (nb < 0)
+	{
+		ft_putchar('-');
+		nb = -nb;
+	}
+	if (nb < 10)
+	{
+		ft_putchar(nb + '0');
+		return ;
+	}
+	ft_putnbr(nb / 10);
+	ft_putchar(nb % 10 + '0');
+}
 
-/*
-** utils.c
-*/
-int		get_file_len(char *file);
-
-#endif
+size_t	ft_putchar(char c)
+{
+	return (write(1, &c, 1));
+}

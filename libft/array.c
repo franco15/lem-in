@@ -1,35 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   array.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfranco- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/06 17:39:17 by lfranco-          #+#    #+#             */
-/*   Updated: 2017/10/06 17:39:17 by lfranco-         ###   ########.fr       */
+/*   Created: 2017/09/28 19:43:57 by lfranco-          #+#    #+#             */
+/*   Updated: 2017/09/28 19:43:58 by lfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+#include "minilibft.h"
 
-#include "../libft/minilibft.h"
-
-typedef struct		s_lemin
+void	ft_arrdel(void **arr)
 {
-	int				ants;
-	int				flen;
-	char			**file;
-}					t_lemin;
+	void	**tmp;
 
-/*
-** main.c
-*/
-int		main(int ac, char **av);
-
-/*
-** utils.c
-*/
-int		get_file_len(char *file);
-
-#endif
+	tmp = arr;
+	if (!arr)
+		return ;
+	while (*tmp)
+	{
+		free(*tmp);
+		*tmp = 0;
+		tmp++;
+	}
+	free(arr);
+	arr = 0;
+}

@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   xtra.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfranco- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/06 17:39:17 by lfranco-          #+#    #+#             */
-/*   Updated: 2017/10/06 17:39:17 by lfranco-         ###   ########.fr       */
+/*   Created: 2017/09/28 15:39:43 by lfranco-          #+#    #+#             */
+/*   Updated: 2017/09/28 15:39:44 by lfranco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+#include "minilibft.h"
 
-#include "../libft/minilibft.h"
-
-typedef struct		s_lemin
+int		ft_isdigit(int c)
 {
-	int				ants;
-	int				flen;
-	char			**file;
-}					t_lemin;
+	return (c >= '0' && c <= '9');
+}
 
-/*
-** main.c
-*/
-int		main(int ac, char **av);
+int		ft_isspace(int c)
+{
+	return (c == 32 || c == 9 || c == 11 || c == 13 || c == 10 || c == '\f');
+}
 
-/*
-** utils.c
-*/
-int		get_file_len(char *file);
-
-#endif
+void	ft_error(char *s)
+{
+	ft_printf_fd(2, "DED: %s\n", s);
+	exit(EXIT_FAILURE);
+}

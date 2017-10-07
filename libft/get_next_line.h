@@ -1,35 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lem_in.h                                           :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lfranco- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: coco <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/06 17:39:17 by lfranco-          #+#    #+#             */
-/*   Updated: 2017/10/06 17:39:17 by lfranco-         ###   ########.fr       */
+/*   Created: 2017/06/29 03:24:17 by coco              #+#    #+#             */
+/*   Updated: 2017/06/29 03:24:18 by coco             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LEM_IN_H
-# define LEM_IN_H
+#ifndef GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-#include "../libft/minilibft.h"
+# include "minilibft.h"
 
-typedef struct		s_lemin
-{
-	int				ants;
-	int				flen;
-	char			**file;
-}					t_lemin;
+# define BUFF_SIZE 1024
 
-/*
-** main.c
-*/
-int		main(int ac, char **av);
-
-/*
-** utils.c
-*/
-int		get_file_len(char *file);
+int					get_next_line(const int fd, char **line);
 
 #endif
