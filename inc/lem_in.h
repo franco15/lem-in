@@ -30,6 +30,5 @@ int		main(int ac, char **av);
 /*
 ** utils.c
 */
-int		get_file_len(char *file);
 
 #endif

@@ -14,25 +14,13 @@
 
 static void	structure_thing(t_lemin *l, char *av)
 {
-	int		i;
-	int		j;
 	int		fd;
 	char	*line;
 
-	i = 0;
-	j = get_file_len(av);
-	l->flen = j;
 	fd = open(av, O_RDONLY);
-	l->file = (char**)ft_memalloc(sizeof(char*) * j);
-	while (i < j)
-	{
-		get_next_line(fd, &line);
-		l->file[i++] = ft_strdup(line);
-	}
-	close(fd);
-	// get_ants(l);
-	// for (i = 0; i < j; i++)
-	// 	printf("%s\n", l->file[i]);
+	get_next_line(fd, &line);
+	l->ants = ft_atoi(line);
+	printf("%d\n", l->ants);
 }
 
 int			main(int ac, char **av)
