@@ -18,9 +18,11 @@
 typedef struct		s_lemin
 {
 	int				ants;
+	int				links;
 	int				rooms;
 	char			*end;
 	char			*start;
+	char			**link;
 	char			**room;
 }					t_lemin;
 
