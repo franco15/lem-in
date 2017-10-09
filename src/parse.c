@@ -21,6 +21,7 @@ void	get_rooms(t_lemin *l, int fd)
 	l->room = (char**)ft_memalloc(sizeof(char*) * 1000);
 	while (get_next_line(fd, &line) > 0 && !ft_strchr(line, '-'))
 	{
+		ft_printf("%s\n", line);
 		if (!ft_strncmp("##start", line, 7))
 			l->start = ft_strndup(line, 7);
 		else if (!ft_strncmp("##end", line, 5))
@@ -30,5 +31,4 @@ void	get_rooms(t_lemin *l, int fd)
 	}
 	ft_memdel((void**)&line);
 	l->rooms = i;
-	printf("smn\n");
 }

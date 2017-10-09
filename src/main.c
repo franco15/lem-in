@@ -20,6 +20,7 @@ static void	structure_thing(t_lemin *l, char *av)
 	fd = open(av, O_RDONLY);
 	get_next_line(fd, &line);
 	l->ants = ft_atoi(line);
+	ft_printf("%d\n", l->ants);
 	ft_memdel((void**)&line);
 	get_rooms(l, fd);
 }
