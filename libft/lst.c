@@ -12,40 +12,79 @@
 
 #include "minilibft.h"
 
-t_list	*ft_lstnew(void const *content, size_t size)
+int		ft_lst_includes(t_lst *lst, char c)
 {
-	t_list *elem;
+	t_lst		*tmp;
 
-	if (!(elem = (t_list*)ft_memalloc(sizeof(t_list))))
-		return (NULL);
-	if (!content)
+	tmp = lst;
+	while (tmp)
 	{
-		elem->content = NULL;
-		elem->size = 0;
+		if (tmp->data == c)
+			return (1);
+		tmp = tmp->next;
 	}
-	else
-	{
-		elem->content = (void*)ft_memalloc(size);
-		elem->content = ft_memcpy(elem->content, content, size);
-		elem->size = size;
-	}
-	elem->next = NULL;
-	return (elem);
+	return (0);
 }
 
-void	ft_lstaddback(t_list **alst, t_list *new)
+size_t	ft_lst_len(t_lst *lst)
 {
-	t_list	*tmp;
+	size_t	i;
+	t_lst	*tmp;
 
-	if (!*alst && !new)
-		return ;
-	if (!*alst)
-		*alst = new;
-	else
+	i = 0;
+	tmp = lst;
+	while (tmp)
 	{
-		tmp = *alst;
-		while (tmp->next)
-			tmp = tmp->next;
-		tmp->next = new;
+		i++;
+		tmp = tmp->next;
 	}
+	return (i);
+}
+
+t_lst	*ft_lst_new(char data)
+{
+	t_lst	*new;
+
+	if (!(new = (t_lst *)ft_memalloc(sizeof(t_lst))))
+		return (NULL);
+	new->data = data;
+	new->next = NULL;
+	return (new);
+}
+
+void	ft_lst_push_back(t_lst **begin_lst, char data)
+{
+	t_lst	*lst;
+
+	if (*begin_lst == NULL)
+	{
+		*begin_lst = ft_lst_new(data);
+		return ;
+	}
+	lst = *begin_lst;
+	while (lst->next)
+		lst = lst->next;
+	lst->next = ft_lst_new(data);
+}
+
+char	*ft_lst_to_s(t_lst *lst)
+{
+	char		*str;
+	size_t		i;
+	t_lst		*tmp;
+	t_lst		*head;
+
+	tmp = lst;
+	i = 0;
+	if (!(str = (char*)ft_memalloc(sizeof(char) * ft_lst_len(tmp) + 1)))
+		return (NULL);
+	while (tmp)
+	{
+		str[i++] = tmp->data;
+		head = tmp;
+		tmp = tmp->next;
+		free(head);
+	}
+	str[i] = '\0';
+	return (str);
 }

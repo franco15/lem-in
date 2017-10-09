@@ -11,3 +11,15 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
+
+void	exit_lemin(t_lemin *l)
+{
+	int	i;
+
+	i = 0;
+	while (i < l->rooms)
+		ft_memdel((void**)&l->room[i++]);
+	free(l->room);
+	ft_memdel((void**)&l->end);
+	ft_memdel((void**)&l->start);
+}

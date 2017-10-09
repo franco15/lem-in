@@ -5,72 +5,92 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: lfranco- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/19 17:54:11 by lfranco-          #+#    #+#             */
-/*   Updated: 2017/03/19 17:54:14 by lfranco-         ###   ########.fr       */
+/*   Created: 2016/12/10 03:44:00 by eurodrig          #+#    #+#             */
+/*   Updated: 2016/12/10 03:44:03 by eurodrig         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "get_next_line.h"
 
-static int	ft_len(char *s)
+void	ft_lst_free(t_lst **reminder, int fd)
 {
-	int i;
-	int j;
+	t_lst			*head;
 
-	j = 0;
-	i = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] == '\n')
-			j++;
-		i++;
-	}
-	return (j);
+	head = reminder[fd];
+	reminder[fd] = reminder[fd]->next;
+	free(head);
 }
 
-static int	ft_solve(char **line, char *stc_buf)
+int		ft_reminder_a(t_lst **reminder, int fd, char **line, t_lst **current)
 {
-	char *i;
-	char *temp;
-
-	if ((i = ft_strchr(stc_buf, '\n')) != 0)
+	if (reminder[fd])
 	{
-		temp = ft_strsub(stc_buf, 0, ft_strlen(stc_buf) - ft_strlen(i));
-		ft_memmove(stc_buf, &i[1], ft_strlen(&i[1]) + 1);
-		*line = ft_strdup(temp);
-		return (1);
-	}
-	if (ft_len(stc_buf) == 0 && ft_strlen(stc_buf) > 0)
-	{
-		*line = ft_strdup(stc_buf);
-		*stc_buf = '\0';
-		return (1);
+		if (ft_lst_includes(reminder[fd], '\n'))
+		{
+			while (reminder[fd]->data != '\n')
+			{
+				ft_lst_push_back(current, reminder[fd]->data);
+				ft_lst_free(reminder, fd);
+			}
+			ft_lst_free(reminder, fd);
+			*line = ft_lst_to_s(*current);
+			return (1);
+		}
+		while (reminder[fd])
+		{
+			ft_lst_push_back(current, reminder[fd]->data);
+			ft_lst_free(reminder, fd);
+		}
 	}
 	return (0);
 }
 
-int			get_next_line(const int fd, char **line)
+int		ft_read_a(t_lst **reminder, int fd, char **line, t_lst **current)
 {
-	static char *stc_buff = NULL;
-	char		buff[BUFF_SIZE + 1];
-	char		*temp2;
-	int			ret;
+	int				ret;
+	size_t			i;
+	char			buf[BUFF_SIZE + 1];
 
-	if (fd == -1 || BUFF_SIZE <= 0)
-		return (-1);
-	if (stc_buff == NULL)
-		stc_buff = ft_strnew(0);
-	while (!ft_strchr(stc_buff, '\n'))
+	while ((ret = read(fd, buf, BUFF_SIZE)) > 0)
 	{
-		ret = read(fd, buff, BUFF_SIZE);
-		if (ret == -1)
-			return (-1);
-		if (ret == 0)
-			break ;
-		buff[ret] = '\0';
-		temp2 = ft_strjoin(stc_buff, buff);
-		stc_buff = temp2;
+		buf[ret] = '\0';
+		i = 0;
+		if (ft_str_includes(buf, '\n'))
+		{
+			while (buf[i] != '\n')
+				ft_lst_push_back(current, buf[i++]);
+			i++;
+			*line = ft_lst_to_s(*current);
+			if ((int)i < ret)
+			{
+				while (buf[i])
+					ft_lst_push_back(&reminder[fd], buf[i++]);
+			}
+			return (1);
+		}
+		while ((int)i < ret)
+			ft_lst_push_back(current, buf[i++]);
 	}
-	return (ft_solve(line, stc_buff));
+	return (0);
+}
+
+int		get_next_line(int fd, char **line)
+{
+	int				ret;
+	char			buf[BUFF_SIZE + 1];
+	t_lst			*current;
+	static t_lst	*reminder[590432];
+
+	if (fd < 0 || read(fd, buf, 0) < 0 || line == NULL)
+		return (-1);
+	current = NULL;
+	if (ft_reminder_a(reminder, fd, line, &current) == 1)
+		return (1);
+	reminder[fd] = NULL;
+	if ((ret = ft_read_a(reminder, fd, line, &current)) == 1)
+		return (1);
+	*line = ft_lst_to_s(current);
+	if (ft_strlen(*line) > 0)
+		return (1);
+	return (ret);
 }

@@ -18,17 +18,25 @@
 typedef struct		s_lemin
 {
 	int				ants;
-	int				flen;
-	char			**file;
+	int				rooms;
+	char			*end;
+	char			*start;
+	char			**room;
 }					t_lemin;
 
 /*
 ** main.c
 */
-int		main(int ac, char **av);
+int					main(int ac, char **av);
+
+/*
+** parse.c
+*/
+void				get_rooms(t_lemin *l, int fd);
 
 /*
 ** utils.c
 */
+void				exit_lemin(t_lemin *l);
 
 #endif

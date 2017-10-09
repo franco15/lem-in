@@ -11,7 +11,7 @@ INC_DIR = ./inc/
 LIBFT_DIR = ./libft/
 
 # Source files and object files
-SRC_FILES = main.c utils.c
+SRC_FILES = main.c parse.c utils.c
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
 # Paths

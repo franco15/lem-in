@@ -21,6 +21,12 @@
 # include <string.h>
 # include <unistd.h>
 
+typedef struct		s_lst
+{
+	struct s_lst	*next;
+	char			data;
+}					t_lst;
+
 typedef struct		s_list
 {
 	void			*content;
@@ -60,8 +66,11 @@ int					get_next_line(const int fd, char **line);
 /*
 ** lst.c
 */
-t_list				*ft_lstnew(void const *content, size_t size);
-void				ft_lstaddback(t_list **alst, t_list *new);
+int					ft_lst_includes(t_lst *lst, char c);
+size_t				ft_lst_len(t_lst *lst);
+t_lst				*ft_lst_new(char data);
+void				ft_lst_push_back(t_lst **begin_lst, char data);
+char				*ft_lst_to_s(t_lst *lst);
 
 /*
 ** mem.c
@@ -116,6 +125,9 @@ char				*ft_strjoin(char const *s1, char const *s2);
 */
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strncpy(char *dst, const char *src, size_t len);
+int					ft_strncmp(const char *s1, const char *s2, size_t n);
+char				*ft_strndup(const char *s1, size_t l);
+int					ft_str_includes(char *str, char c);
 
 /*
 ** xtra.c

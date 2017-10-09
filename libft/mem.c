@@ -51,14 +51,19 @@ void	ft_memdel(void **ap)
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
+	size_t		i;
 	char		*p;
 	const char	*s;
 
+	i = 0;
 	s = src;
 	p = dst;
 	if (!n || dst == src)
 		return (dst);
-	while (n--)
-		*p++ = *s++;
+	while (i < n)
+	{
+		p[i] = s[i];
+		i++;
+	}
 	return (dst);
 }
