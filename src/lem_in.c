@@ -15,5 +15,5 @@
 void	lem_in(t_lemin *l)
 {
 	(void)l;
-	printf("smn\n");
+	printf("lemin\n");
 }

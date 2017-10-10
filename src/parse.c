@@ -12,6 +12,12 @@
 
 #include "lem_in.h"
 
+void		lonks(t_lemin *l)
+{
+	(void)l;
+	printf("lonks\n");
+}
+
 static void	get_links(t_lemin *l, int fd, char *line)
 {
 	int	i;
@@ -32,7 +38,7 @@ static void	get_links(t_lemin *l, int fd, char *line)
 	ft_printf("\n");
 }
 
-void	get_rooms(t_lemin *l, int fd)
+void		get_rooms(t_lemin *l, int fd)
 {
 	int		i;
 	char	*line;

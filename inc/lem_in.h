@@ -20,6 +20,7 @@ typedef struct		s_lemin
 	int				ants;
 	int				links; //edges
 	int				rooms; //vertices
+	int				**lonk;
 	char			*end;
 	char			*start;
 	char			**link;
@@ -39,6 +40,7 @@ int					main(void);
 /*
 ** parse.c
 */
+void				lonks(t_lemin *l);
 void				get_rooms(t_lemin *l, int i);
 
 /*

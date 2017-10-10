@@ -22,6 +22,7 @@ static void	read_thing(t_lemin *l)
 	l->link = (char**)ft_memalloc(sizeof(char*) * 1000);
 	l->room = (char**)ft_memalloc(sizeof(char*) * 1000);
 	get_rooms(l, 0);
+	lonks(l);
 }
 
 int			main(void)
