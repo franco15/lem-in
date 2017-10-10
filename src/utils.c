@@ -20,6 +20,10 @@ void	exit_lemin(t_lemin *l)
 	while (i < l->rooms)
 		ft_memdel((void**)&l->room[i++]);
 	free(l->room);
+	i = 0;
+	while (i < l->links)
+		ft_memdel((void**)&l->link[i++]);
+	free(l->link);
 	ft_memdel((void**)&l->end);
 	ft_memdel((void**)&l->start);
 }

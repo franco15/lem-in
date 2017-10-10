@@ -18,8 +18,8 @@
 typedef struct		s_lemin
 {
 	int				ants;
-	int				links;
-	int				rooms;
+	int				links; //edges
+	int				rooms; //vertices
 	char			*end;
 	char			*start;
 	char			**link;
@@ -27,14 +27,19 @@ typedef struct		s_lemin
 }					t_lemin;
 
 /*
+** lem_in.c
+*/
+void				lem_in(t_lemin *l);
+
+/*
 ** main.c
 */
-int					main(int ac, char **av);
+int					main(void);
 
 /*
 ** parse.c
 */
-void				get_rooms(t_lemin *l, int fd);
+void				get_rooms(t_lemin *l, int i);
 
 /*
 ** utils.c
