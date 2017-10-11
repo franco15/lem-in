@@ -14,6 +14,7 @@
 
 static void	read_thing(t_lemin *l)
 {
+	int		i;
 	char	*line;
 
 	get_next_line(0, &line);
@@ -22,6 +23,12 @@ static void	read_thing(t_lemin *l)
 	l->link = (char**)ft_memalloc(sizeof(char*) * 1000);
 	l->room = (char**)ft_memalloc(sizeof(char*) * 1000);
 	get_rooms(l, 0);
+	l->lonk = (int**)ft_memalloc(sizeof(int*) * l->rooms);
+	i = 0;
+	while (i < l->rooms)
+		l->lonk[i++] = (int*)ft_memalloc(sizeof(int) * l->rooms);
+	l->distance = l->rooms - 1;
+	l->path = (int*)ft_memalloc(sizeof(int) * l->rooms);
 	lonks(l);
 }
 

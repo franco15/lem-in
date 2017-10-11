@@ -130,10 +130,17 @@ char				*ft_strndup(const char *s1, size_t l);
 int					ft_str_includes(char *str, char c);
 
 /*
+** strings4.c
+*/
+char	**ft_strsplit(char const *s, char c);
+
+/*
 ** xtra.c
 */
 int					ft_isdigit(int c);
 int					ft_isspace(int c);
 void				ft_error(char *s);
+int					ft_countwords(char const *s, char c);
+int					ft_wordlen(char const *s, char c);
 
 #endif

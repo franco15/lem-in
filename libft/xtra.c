@@ -27,3 +27,41 @@ void	ft_error(char *s)
 	ft_printf_fd(2, "DED: %s\n", s);
 	exit(EXIT_FAILURE);
 }
+
+int		ft_countwords(char const *s, char c)
+{
+	int i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	while (*s)
+	{
+		if (*s != c)
+			i++;
+		while (*s && *s != c)
+			s++;
+		if (!*s)
+			return (i);
+		s++;
+	}
+	return (i);
+}
+
+int		ft_wordlen(char const *s, char c)
+{
+	int	i;
+
+	i = 0;
+	while (*s)
+	{
+		if (*s == c)
+			return (i);
+		else
+		{
+			s++;
+			i++;
+		}
+	}
+	return (i);
+}

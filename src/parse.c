@@ -12,10 +12,38 @@
 
 #include "lem_in.h"
 
+static int	get_room(t_lemin *l, char *s)
+{
+	int	i;
+
+	i = 0;
+	while (i < l->rooms)
+	{
+		if (!ft_strncmp(s, l->room[i], ft_strlen(s)))
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
 void		lonks(t_lemin *l)
 {
-	(void)l;
-	printf("lonks\n");
+	int		i;
+	int		j;
+	int		k;
+	char	**s;
+
+	k = -1;
+	while (++k < l->links)
+	{
+		s = ft_strsplit(l->link[k], '-');
+		i = get_room(l, s[0]);
+		j = get_room(l, s[1]);
+		if (i < 0 || j < 0)
+			ft_error("room doesn't exist");
+		l->lonk[i][j] = 1;
+		l->lonk[j][i] = 1;
+	}
 }
 
 static void	get_links(t_lemin *l, int fd, char *line)

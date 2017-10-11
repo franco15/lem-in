@@ -20,6 +20,8 @@ typedef struct		s_lemin
 	int				ants;
 	int				links; //edges
 	int				rooms; //vertices
+	int				distance;
+	int				*path;
 	int				**lonk;
 	char			*end;
 	char			*start;
