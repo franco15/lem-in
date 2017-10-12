@@ -25,7 +25,7 @@ typedef struct		s_lemin
 	int				**lonk;
 	char			*end;
 	char			*start;
-	char			**link;
+	char			***link;
 	char			**room;
 }					t_lemin;
 
@@ -42,12 +42,13 @@ int					main(void);
 /*
 ** parse.c
 */
+int					get_room(t_lemin *l, char *s);
 void				lonks(t_lemin *l);
 void				get_rooms(t_lemin *l, int i);
 
 /*
 ** utils.c
 */
-void				exit_lemin(t_lemin *l);
+void				free_lemin(t_lemin *l);
 
 #endif

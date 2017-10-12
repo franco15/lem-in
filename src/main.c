@@ -20,7 +20,7 @@ static void	read_thing(t_lemin *l)
 	get_next_line(0, &line);
 	ft_printf("%d\n", (l->ants = ft_atoi(line)));
 	ft_memdel((void**)&line);
-	l->link = (char**)ft_memalloc(sizeof(char*) * 1000);
+	l->link = (char***)ft_memalloc(sizeof(char**) * 1000);
 	l->room = (char**)ft_memalloc(sizeof(char*) * 1000);
 	get_rooms(l, 0);
 	l->lonk = (int**)ft_memalloc(sizeof(int*) * l->rooms);
@@ -37,7 +37,7 @@ int			main(void)
 	t_lemin	l;
 
 	read_thing(&l);
-	exit_lemin(&l);
 	lem_in(&l);
-	return (1);
+	free_lemin(&l);
+	return (0);
 }

@@ -12,17 +12,23 @@
 
 #include "lem_in.h"
 
-void	exit_lemin(t_lemin *l)
+void	free_lemin(t_lemin *l)
 {
 	int	i;
+	int	j;
 
 	i = 0;
 	while (i < l->rooms)
 		ft_memdel((void**)&l->room[i++]);
 	free(l->room);
-	i = 0;
-	while (i < l->links)
-		ft_memdel((void**)&l->link[i++]);
+	i = -1;
+	while (++i < l->links)
+	{
+		j = -1;
+		while (++j < 2)
+			ft_memdel((void**)&l->link[i][j]);
+		free(l->link[i]);
+	}
 	free(l->link);
 	i = 0;
 	while (i < l->rooms)

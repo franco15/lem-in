@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-static int	get_room(t_lemin *l, char *s)
+int		get_room(t_lemin *l, char *s)
 {
 	int	i;
 
@@ -31,18 +31,19 @@ void		lonks(t_lemin *l)
 	int		i;
 	int		j;
 	int		k;
-	char	**s;
 
 	k = -1;
 	while (++k < l->links)
 	{
-		s = ft_strsplit(l->link[k], '-');
-		i = get_room(l, s[0]);
-		j = get_room(l, s[1]);
+		i = get_room(l, l->link[k][0]);
+		j = get_room(l, l->link[k][1]);
 		if (i < 0 || j < 0)
+		{
+			free_lemin(l);
 			ft_error("room doesn't exist");
+		}
 		l->lonk[i][j] = 1;
-		l->lonk[j][i] = 1;
+		// l->lonk[j][i] = 1;
 	}
 }
 
@@ -52,13 +53,13 @@ static void	get_links(t_lemin *l, int fd, char *line)
 
 	i = 0;
 	ft_printf("%s\n", line);
-	ft_strncmp("#", line, 1) ? (l->link[i++] = ft_strdup(line)) : 0;
+	ft_strncmp("#", line, 1) ? (l->link[i++] = ft_strsplit(line, '-')) : 0;
 	ft_memdel((void**)&line);
 	while (get_next_line(fd, &line) > 0)
 	{
 		ft_printf("%s\n", line);
 		if (ft_strncmp("#", line, 1))
-			l->link[i++] = ft_strdup(line);
+			l->link[i++] = ft_strsplit(line, '-');
 		ft_memdel((void**)&line);
 	}
 	ft_memdel((void**)&line);

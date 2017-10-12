@@ -14,6 +14,24 @@
 
 void	lem_in(t_lemin *l)
 {
-	(void)l;
-	printf("lemin\n");
+	int		i;
+	int		start;
+
+	// i = 0;
+	start = get_room(l, l->start);
+	// while (i )
+	i = 0;
+	for (i = 0; i < l->rooms; i++)
+	{
+		for (int j = 0; j < l->rooms; j++)
+			printf("%d ", l->lonk[i][j]);
+		printf("\n");
+	}
 }
+
+/*
+while (i < # of links to start)
+{
+	
+}
+*/
