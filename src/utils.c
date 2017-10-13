@@ -32,9 +32,12 @@ void	free_lemin(t_lemin *l)
 	free(l->link);
 	i = 0;
 	while (i < l->rooms)
+	{
 		ft_memdel((void**)&l->lonk[i++]);
+		// ft_memdel((void**)&l->path[i++]);
+	}
 	free(l->lonk);
-	ft_memdel((void**)&l->path);
+	// free(l->path);
 	ft_memdel((void**)&l->end);
 	ft_memdel((void**)&l->start);
 }

@@ -12,14 +12,48 @@
 
 #include "lem_in.h"
 
-void	lem_in(t_lemin *l)
+static char	*get_next_room(t_lemin *l, char *path)
+{
+	(void)l;
+	printf("%s\n", path);
+	return (0);
+}
+
+static void	lemin_start(t_lemin *l, char **link)
+{
+	int		i;
+	char	*next;
+	char	**path;
+
+	i = 0;
+	path = (char**)ft_memalloc(sizeof(char*) * l->rooms);
+	if (!ft_strncmp(link[0], l->start, ft_strlen(link[0])))
+		path[i++] = ft_strdup(link[1]);
+	else
+		path[i++] = ft_strdup(link[0]);
+	while ((next = get_next_room(l, path[i - 1])) && i < l->rooms)
+	{
+		path[i++] = ft_strdup(next);
+		ft_memdel((void**)&next);
+	}
+	ft_arrdel((void**)path);
+}
+
+void		lem_in(t_lemin *l)
 {
 	int		i;
 	int		start;
 
-	// i = 0;
+	i = 0;
 	start = get_room(l, l->start);
-	// while (i )
+	while (i < l->links)
+	{
+		if (!ft_strncmp(l->link[i][0], l->start, ft_strlen(l->link[i][0])) ||
+			!ft_strncmp(l->link[i][1], l->start, ft_strlen(l->link[i][1])))
+			lemin_start(l, l->link[i]);
+		i++;
+	}
+	printf("\n");
 	i = 0;
 	for (i = 0; i < l->rooms; i++)
 	{
@@ -32,6 +66,6 @@ void	lem_in(t_lemin *l)
 /*
 while (i < # of links to start)
 {
-	
+
 }
 */

@@ -21,12 +21,12 @@ typedef struct		s_lemin
 	int				links; //edges
 	int				rooms; //vertices
 	int				distance;
-	int				*path;
 	int				**lonk;
 	char			*end;
 	char			*start;
-	char			***link;
+	char			**path;
 	char			**room;
+	char			***link;
 }					t_lemin;
 
 /*

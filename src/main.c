@@ -27,8 +27,8 @@ static void	read_thing(t_lemin *l)
 	i = 0;
 	while (i < l->rooms)
 		l->lonk[i++] = (int*)ft_memalloc(sizeof(int) * l->rooms);
-	l->distance = l->rooms - 1;
-	l->path = (int*)ft_memalloc(sizeof(int) * l->rooms);
+	// l->distance = 0;
+	// l->path = (char**)ft_memalloc(sizeof(char*) * l->rooms);
 	lonks(l);
 }
 
