@@ -18,6 +18,7 @@
 typedef struct		s_lemin
 {
 	int				ants;
+	int				whereami;
 	int				links; //edges
 	int				rooms; //vertices
 	int				distance;

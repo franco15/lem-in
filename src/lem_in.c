@@ -29,6 +29,11 @@ void		lem_in(t_lemin *l)
 {
 	int		i;
 
+	/*
+	**	if (hay link entre start y end)
+	**		piensale que se hace no seas wey;
+	**		return ;
+	*/
 	i = 0;
 	printf("\n");
 	for (i = 0; i < l->rooms; i++)
