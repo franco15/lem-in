@@ -37,7 +37,9 @@ typedef struct		s_list
 /*
 ** array.c
 */
-void				ft_arrdel(void **arr);
+void				ft_arrdel(void **arr, int len);
+size_t				ft_arrlen(void **s);
+char				**ft_arrdup(char **s, int len);
 
 /*
 ** conv.c

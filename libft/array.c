@@ -12,19 +12,46 @@
 
 #include "minilibft.h"
 
-void	ft_arrdel(void **arr)
+void	ft_arrdel(void **arr, int len)
 {
+	int		i;
 	void	**tmp;
 
+	i = 0;
 	tmp = arr;
 	if (!arr)
 		return ;
-	while (*tmp)
+	while (i < len)
 	{
-		free(*tmp);
-		*tmp = 0;
-		tmp++;
+		free(tmp[i]);
+		tmp[i] = 0;
+		i++;
 	}
 	free(arr);
 	arr = 0;
+}
+
+size_t	ft_arrlen(void **s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
+char	**ft_arrdup(char **s, int len)
+{
+	int		i;
+	char	**ret;
+
+	i = 0;
+	ret = (char**)ft_memalloc(sizeof(char*) * len);
+	while (i < len)
+	{
+		ret[i] = ft_strdup(s[i]);
+		i++;
+	}
+	return (ret);
 }
