@@ -42,9 +42,13 @@ void		lonks(t_lemin *l)
 			free_lemin(l);
 			ft_error("room doesn't exist");
 		}
-		l->lonk[i][j] = 1;
+		if (l->lonk[i][j] == 0)
+			l->lonk[i][j] = 1;
+		// else
+			//delete link
 		// l->lonk[j][i] = 1;
 	}
+	l->whereami = get_room(l, l->start);
 }
 
 static void	get_links(t_lemin *l, int fd, char *line)

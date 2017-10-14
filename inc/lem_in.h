@@ -22,7 +22,7 @@ typedef struct		s_lemin
 	int				links; //edges
 	int				rooms; //vertices
 	int				distance;
-	int				**lonk;
+	int				**lonk; //1 & 0 table
 	char			*end;
 	char			*start;
 	char			**path;
@@ -33,7 +33,7 @@ typedef struct		s_lemin
 /*
 ** lem_in.c
 */
-void				lem_in(t_lemin *l);
+void		lem_in(t_lemin *l, int x, int y);
 
 /*
 ** main.c

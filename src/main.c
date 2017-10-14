@@ -37,7 +37,7 @@ int			main(void)
 	t_lemin	l;
 
 	read_thing(&l);
-	lem_in(&l);
+	lem_in(&l, 0, 0);
 	free_lemin(&l);
 	return (0);
 }

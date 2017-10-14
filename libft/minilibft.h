@@ -134,7 +134,8 @@ int					ft_str_includes(char *str, char c);
 /*
 ** strings4.c
 */
-char	**ft_strsplit(char const *s, char c);
+char				**ft_strsplit(char const *s, char c);
+int					ft_strcmp(const char *s1, const char *s2);
 
 /*
 ** xtra.c
