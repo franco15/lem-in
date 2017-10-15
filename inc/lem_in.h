@@ -36,6 +36,11 @@ typedef struct		s_lemin
 void		lem_in(t_lemin *l, int x, int y);
 
 /*
+** link.c
+*/
+int			get_link(t_lemin *l, int i);
+
+/*
 ** main.c
 */
 int					main(void);
