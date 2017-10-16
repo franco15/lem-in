@@ -56,5 +56,7 @@ void				get_rooms(t_lemin *l, int i);
 ** utils.c
 */
 void				free_lemin(t_lemin *l);
+int		is_end(t_lemin *l, int n);
+int		is_valid(t_lemin *l, int n);
 
 #endif

@@ -27,11 +27,11 @@ static int	start_link_end(t_lemin *l)
 	return (0);
 }
 
-// static void	lemin_start(t_lemin *l, char **link)
-// {
-// 	(void)l;
-// 	(void)link;
-// }
+static void	add_to_path(t_lemin *l, int n)
+{
+	(void)l;
+	(void)n;
+}
 
 void		lem_in(t_lemin *l, int x, int y)
 {
@@ -44,7 +44,10 @@ void		lem_in(t_lemin *l, int x, int y)
 		return ;
 	while ((i = get_link(l, i)) != -1 && i < l->links)
 	{
-		// printf("%s\n", l->link[i][0]);
+		if (is_end(l, i))
+			return ;
+		if (is_valid(l, i))
+			add_to_path(l, i);
 		// printf("%s\n", l->link[i][1]);
 		break ;
 	}

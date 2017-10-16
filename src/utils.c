@@ -12,6 +12,21 @@
 
 #include "lem_in.h"
 
+int		is_end(t_lemin *l, int n)
+{
+	if (!ft_strncmp(l->link[n][0], l->end, ft_strlen(l->end)) ||
+		!ft_strncmp(l->link[n][1], l->end, ft_strlen(l->end)))
+		return (1);
+	return (0);
+}
+
+int		is_valid(t_lemin *l, int n)
+{
+	(void)l;
+	(void)n;
+	return (0);
+}
+
 void	free_lemin(t_lemin *l)
 {
 	int	i;
