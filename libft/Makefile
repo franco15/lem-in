@@ -1,8 +1,8 @@
 NAME = libft.a
 
 SRC =	array.c conv.c ft_printf_fd.c ft_printf.c get_next_line.c lst.c \
-		mem.c mem2.c put_fd.c put.c strings.c strings2.c strings3.c strings4.c \
-		xtra.c \
+		lst2.c mem.c mem2.c put_fd.c put.c strings.c strings2.c strings3.c \
+		strings4.c xtra.c \
 
 OBJ = $(SRC:.c=.o)
 

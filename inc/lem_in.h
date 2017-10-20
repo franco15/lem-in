@@ -15,49 +15,60 @@
 
 #include "../libft/minilibft.h"
 
+typedef struct		t_room
+{
+	int				x;
+	int				y;
+	int				command;
+	int				wait;
+	int				ant;
+	char			*name;
+	t_list			*path;
+}					t_room;
+
+typedef struct		s_ant
+{
+	int				which_ant;
+	int				did_turn;
+	t_room			*room;
+	t_room			*last;
+}					t_ant;
+
 typedef struct		s_lemin
 {
-	int				p;
-	int				ants;
-	int				whereami;
-	int				links; //edges
-	int				rooms; //vertices
-	int				**lonk; //1 & 0 table
-	char			*end;
-	char			*start;
-	char			**path;
-	char			**room;
-	char			***link;
+	int				qa; //quantity of ants
+	int				moves;
+	int				rooms_kewl;
+	t_ant			*ants; // list of ants
+	t_list			*rooms; //room list
+	t_list			*path; // path list
 }					t_lemin;
 
 /*
 ** lem_in.c
 */
-void				lem_in(t_lemin *l, int x, int y);
 
 /*
-** link.c
+** ants.c
 */
-int					get_link(t_lemin *l, int i);
-void				check_link(t_lemin *l, int n);
+int					get_qa(void);
 
 /*
 ** main.c
 */
-int					main(void);
+int					main(int ac, char **av);
 
 /*
 ** parse.c
 */
-int					get_room(t_lemin *l, char *s);
-void				lonks(t_lemin *l);
-void				get_rooms(t_lemin *l, int i);
+int					read_file(t_lemin *l);
+t_ant				*start_ants(t_list *rooms, int ants);
 
 /*
 ** utils.c
 */
-void				free_lemin(t_lemin *l);
-int					is_end(t_lemin *l, int n);
-int					is_valid(t_lemin *l, int n);
+int					is_room(char *line);
+int					is_link(t_list *rooms, char *line);
+t_room				*get_command(t_list *rooms, int i);
 
 #endif

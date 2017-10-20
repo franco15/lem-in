@@ -75,6 +75,11 @@ void				ft_lst_push_back(t_lst **begin_lst, char data);
 char				*ft_lst_to_s(t_lst *lst);
 
 /*
+** lst2.c
+*/
+t_list		*ft_lstpush(t_list *first, void *content);
+
+/*
 ** mem.c
 */
 void				*ft_memalloc(size_t size);
@@ -136,6 +141,7 @@ int					ft_str_includes(char *str, char c);
 */
 char				**ft_strsplit(char const *s, char c);
 int					ft_strcmp(const char *s1, const char *s2);
+int					ft_strequ(char const *s1, char const *s2);
 
 /*
 ** xtra.c

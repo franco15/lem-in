@@ -3,41 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lfranco- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: coco <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/06 17:39:25 by lfranco-          #+#    #+#             */
-/*   Updated: 2017/10/06 17:39:26 by lfranco-         ###   ########.fr       */
+/*   Created: 2017/10/20 03:50:15 by coco              #+#    #+#             */
+/*   Updated: 2017/10/20 03:50:16 by coco             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-static void	read_thing(t_lemin *l)
+static void	start_lemin(t_lemin *l)
 {
-	int		i;
-	char	*line;
-
-	get_next_line(0, &line);
-	ft_printf("%d\n", (l->ants = ft_atoi(line)));
-	ft_memdel((void**)&line);
-	l->link = (char***)ft_memalloc(sizeof(char**) * 1000);
-	l->room = (char**)ft_memalloc(sizeof(char*) * 1000);
-	get_rooms(l, 0);
-	l->lonk = (int**)ft_memalloc(sizeof(int*) * l->rooms);
-	i = 0;
-	while (i < l->rooms)
-		l->lonk[i++] = (int*)ft_memalloc(sizeof(int) * l->rooms);
-	l->path = (char**)ft_memalloc(sizeof(char*) * l->rooms);
-	l->p = 0;
-	lonks(l);
+	l->moves = 0;
+	l->rooms = NULL;
+	l->path = NULL;
+	if (!(l->qa = get_qa()))
+	{
+		printf("ded at qa\n");
+		return ;
+	}
+	if (read_file(l) == -1)
+	{
+		printf("ded at read_file\n");
+		return ;
+	}
+	if (!l->rooms || !l->path)
+	{
+		printf("ded after read_file\n");
+		return ;
+	}
+	l->ants = start_ants(l->rooms, l->qa);
 }
 
-int			main(void)
+int		main(int ac, char **av)
 {
-	t_lemin	l;
+	t_lemin	*l;
 
-	read_thing(&l);
-	lem_in(&l, 0, 0);
-	free_lemin(&l);
-	return (0);
+	(void)ac;
+	(void)av;
+	if (!(l = (t_lemin*)ft_memalloc(sizeof(t_lemin))))
+		return (printf("ded\n"));
+	start_lemin(l);
 }

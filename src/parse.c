@@ -3,98 +3,98 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lfranco- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: coco <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/09 10:28:29 by lfranco-          #+#    #+#             */
-/*   Updated: 2017/10/09 10:28:30 by lfranco-         ###   ########.fr       */
+/*   Created: 2017/10/20 04:24:27 by coco              #+#    #+#             */
+/*   Updated: 2017/10/20 04:24:28 by coco             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		get_room(t_lemin *l, char *s)
+t_ant			*start_ants(t_list *rooms, int ants)
 {
-	int	i;
+	int		i;
+	t_ant	*ret;
 
 	i = 0;
-	while (i < l->rooms)
+	if (!(ret = (t_ant*)ft_memalloc(sizeof(t_ant) * ants)))
 	{
-		if (!ft_strncmp(s, l->room[i], ft_strlen(s)))
-			return (i);
+		printf("ded\n");
+		exit(0);
+	}
+	while (i < ants)
+	{
+		ret[i].room = get_command(rooms, 1);
+		ret[i].did_turn = 0;
+		ret[i].which_ant = i + 1;
 		i++;
 	}
-	return (-1);
+	return (ret);
 }
 
-void		lonks(t_lemin *l)
+static t_room	*start_room(char *line, int command)
 {
 	int		i;
-	int		j;
-	int		k;
-
-	k = -1;
-	while (++k < l->links)
-	{
-		i = get_room(l, l->link[k][0]);
-		j = get_room(l, l->link[k][1]);
-		if (i < 0 || j < 0)
-		{
-			free_lemin(l);
-			ft_error("room doesn't exist");
-		}
-		if (l->lonk[i][j] == 0)
-			l->lonk[i][j] = 1;
-		// else
-			//delete link
-		// l->lonk[j][i] = 1;
-	}
-	l->whereami = get_room(l, l->start);
-}
-
-static void	get_links(t_lemin *l, int fd, char *line)
-{
-	int	i;
+	t_room	*ret;
 
 	i = 0;
-	ft_printf("%s\n", line);
-	ft_strncmp("#", line, 1) ? (l->link[i++] = ft_strsplit(line, '-')) : 0;
-	ft_memdel((void**)&line);
-	while (get_next_line(fd, &line) > 0)
+	if (!(ret = (t_room*)ft_memalloc(sizeof(t_room))))
 	{
-		ft_printf("%s\n", line);
-		if (ft_strncmp("#", line, 1))
-			l->link[i++] = ft_strsplit(line, '-');
-		ft_memdel((void**)&line);
+		printf("ded\n");
+		exit(0);
 	}
+	while (line[i] != ' ')
+		i++;
+	ret->command = command;
+	ret->name = ft_strsub(line, 0, i);
+	// while (line[i] == ' ')
+	// 	i++;
+	// ret->x = ft_atoi(line + i);
+	// while (line[i] != ' ')
+	// 	i++;
+	// while (line[i] == ' ')
+	// 	i++;
+	// ret->y = ft_atoi(line + i);
+	ret->path = NULL;
+	ret->wait = 0;
+	ret->ant = 0;
 	ft_memdel((void**)&line);
-	l->links = i;
-	ft_printf("\n");
+	return (ret);
 }
 
-void		get_rooms(t_lemin *l, int fd)
+int				read_file(t_lemin *l)
 {
 	int		i;
+	int		command;
 	char	*line;
 
-	i = 0;
-	while (get_next_line(fd, &line) > 0 && !ft_strchr(line, '-'))
+	command = 0;
+	while ((i = get_next_line(0, &line)) > 0)
 	{
 		ft_printf("%s\n", line);
-		if (!ft_strncmp("##start", line, 7))
+		if (line[0] == '#')
 		{
-			ft_memdel((void**)&line);
-			get_next_line(fd, &line);
-			ft_printf("%s\n", (l->start = ft_strdup(line)));
+			if (line[1] == '#' && ft_strequ(line, "##start"))
+				command = 1;
+			else if (line[1] == '#' && ft_strequ(line, "##end"))
+				command = 2;
+			else
+				ft_memdel((void**)&line);
 		}
-		else if (!ft_strncmp("##end", line, 5))
+		else if (is_room(line) && !l->rooms_kewl)
 		{
-			ft_memdel((void**)&line);
-			get_next_line(fd, &line);
-			ft_printf("%s\n", (l->end = ft_strdup(line)));
+			l->rooms = ft_lstpush(l->rooms, start_room(line, command));
+			command = 0;
 		}
-		ft_strncmp("#", line, 1) ? (l->room[i++] = ft_strdup(line)) : 0;
-		ft_memdel((void**)&line);
+		else if (is_link(l->rooms, line) && (l->rooms_kewl = 1))
+		{
+			l->path = ft_lstpush(l->path, ft_strsplit(line, '-'));
+			ft_memdel((void**)&line);
+		}
+		else
+			break ;
 	}
-	l->rooms = i;
-	get_links(l, fd, line);
+	ft_memdel((void**)&line);
+	return (i);
 }

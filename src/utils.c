@@ -3,59 +3,80 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lfranco- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: coco <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/06 19:00:11 by lfranco-          #+#    #+#             */
-/*   Updated: 2017/10/06 19:00:12 by lfranco-         ###   ########.fr       */
+/*   Created: 2017/10/20 05:45:18 by coco              #+#    #+#             */
+/*   Updated: 2017/10/20 05:45:19 by coco             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lem_in.h"
 
-int		is_end(t_lemin *l, int n)
+t_room			*get_command(t_list *rooms, int i)
 {
-	if (!ft_strncmp(l->link[n][0], l->end, ft_strlen(l->end)) ||
-		!ft_strncmp(l->link[n][1], l->end, ft_strlen(l->end)))
+	t_room	*ret;
+
+	while (rooms)
 	{
-		l->path[l->p++] = ft_strdup(l->room[get_room(l, l->end)]);
-		return (1);
+		ret = (t_room*)rooms->content;
+		if (ret->command == i)
+			return (ret);
+		rooms = rooms->next;
 	}
-	return (0);
+	return (NULL);
 }
 
-int		is_valid(t_lemin *l, int n)
+static t_room	*get_room(t_list *rooms, char *room)
 {
-	(void)l;
-	(void)n;
+	t_room	*tmp;
+
+	while (rooms)
+	{
+		tmp = (t_room*)rooms->content;
+		if (ft_strequ(room, tmp->name))
+			return (tmp);
+		rooms = rooms->next;
+	}
+	return (NULL);
+}
+
+int				is_link(t_list *rooms, char *line)
+{
+	char	**doors;
+
+	if (ft_strchr(line, '-'))
+	{
+		doors = ft_strsplit(line, '-');
+		if (get_room(rooms, doors[0]) && get_room(rooms, doors[1]))
+		{
+			ft_arrdel((void**)doors, 2);
+			return (1);
+		}
+	}
+	ft_arrdel((void**)doors, 2);
 	return (0);
 }
 
-void	free_lemin(t_lemin *l)
+int				is_room(char *line)
 {
 	int	i;
-	int	j;
 
 	i = 0;
-	while (i < l->rooms)
-		ft_memdel((void**)&l->room[i++]);
-	free(l->room);
-	i = -1;
-	while (++i < l->links)
-	{
-		j = -1;
-		while (++j < 2)
-			ft_memdel((void**)&l->link[i][j]);
-		free(l->link[i]);
-	}
-	free(l->link);
-	i = 0;
-	while (i < l->rooms)
-	{
-		ft_memdel((void**)&l->lonk[i++]);
-		ft_memdel((void**)&l->path[i++]);
-	}
-	free(l->lonk);
-	free(l->path);
-	ft_memdel((void**)&l->end);
-	ft_memdel((void**)&l->start);
+	while (line[i] && line[i] != ' ')
+		i++;
+	if (line[i++] != ' ')
+		return (0);
+	if (line[i] == '-')
+		i++;
+	while (line[i] && ft_isdigit(line[i]))
+		i++;
+	if (line[i++] != ' ')
+		return (0);
+	if (line[i] == '-')
+		i++;
+	while (line[i] && ft_isdigit(line[i]))
+		i++;
+	if (line[i])
+		return (0);
+	return (1);
 }
