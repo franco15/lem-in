@@ -16,7 +16,10 @@ int		is_end(t_lemin *l, int n)
 {
 	if (!ft_strncmp(l->link[n][0], l->end, ft_strlen(l->end)) ||
 		!ft_strncmp(l->link[n][1], l->end, ft_strlen(l->end)))
+	{
+		l->path[l->p++] = ft_strdup(l->room[get_room(l, l->end)]);
 		return (1);
+	}
 	return (0);
 }
 
@@ -49,10 +52,10 @@ void	free_lemin(t_lemin *l)
 	while (i < l->rooms)
 	{
 		ft_memdel((void**)&l->lonk[i++]);
-		// ft_memdel((void**)&l->path[i++]);
+		ft_memdel((void**)&l->path[i++]);
 	}
 	free(l->lonk);
-	// free(l->path);
+	free(l->path);
 	ft_memdel((void**)&l->end);
 	ft_memdel((void**)&l->start);
 }

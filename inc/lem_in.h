@@ -17,11 +17,11 @@
 
 typedef struct		s_lemin
 {
+	int				p;
 	int				ants;
 	int				whereami;
 	int				links; //edges
 	int				rooms; //vertices
-	int				distance;
 	int				**lonk; //1 & 0 table
 	char			*end;
 	char			*start;
@@ -33,12 +33,13 @@ typedef struct		s_lemin
 /*
 ** lem_in.c
 */
-void		lem_in(t_lemin *l, int x, int y);
+void				lem_in(t_lemin *l, int x, int y);
 
 /*
 ** link.c
 */
-int			get_link(t_lemin *l, int i);
+int					get_link(t_lemin *l, int i);
+void				check_link(t_lemin *l, int n);
 
 /*
 ** main.c
@@ -56,7 +57,7 @@ void				get_rooms(t_lemin *l, int i);
 ** utils.c
 */
 void				free_lemin(t_lemin *l);
-int		is_end(t_lemin *l, int n);
-int		is_valid(t_lemin *l, int n);
+int					is_end(t_lemin *l, int n);
+int					is_valid(t_lemin *l, int n);
 
 #endif
