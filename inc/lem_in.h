@@ -23,7 +23,7 @@ typedef struct		t_room
 	int				wait;
 	int				ant;
 	char			*name;
-	t_list			*path;
+	t_list			*links;
 }					t_room;
 
 typedef struct		s_ant
@@ -31,7 +31,7 @@ typedef struct		s_ant
 	int				which_ant;
 	int				did_turn;
 	t_room			*room;
-	t_room			*last;
+	t_room			*prev;
 }					t_ant;
 
 typedef struct		s_lemin
@@ -41,17 +41,23 @@ typedef struct		s_lemin
 	int				rooms_kewl;
 	t_ant			*ants; // list of ants
 	t_list			*rooms; //room list
-	t_list			*path; // path list
+	t_list			*links; // list of links
 }					t_lemin;
-
-/*
-** lem_in.c
-*/
 
 /*
 ** ants.c
 */
 int					get_qa(void);
+
+/*
+** ded.c
+*/
+void				ded(t_lemin *l);
+
+/*
+** lemin.c
+*/
+void				lemin(t_lemin *l);
 
 /*
 ** main.c
@@ -70,5 +76,6 @@ t_ant				*start_ants(t_list *rooms, int ants);
 int					is_room(char *line);
 int					is_link(t_list *rooms, char *line);
 t_room				*get_command(t_list *rooms, int i);
+t_room				*get_room(t_list *rooms, char *room);
 
 #endif

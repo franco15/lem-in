@@ -26,7 +26,7 @@ t_room			*get_command(t_list *rooms, int i)
 	return (NULL);
 }
 
-static t_room	*get_room(t_list *rooms, char *room)
+t_room	*get_room(t_list *rooms, char *room)
 {
 	t_room	*tmp;
 

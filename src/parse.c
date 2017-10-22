@@ -56,7 +56,7 @@ static t_room	*start_room(char *line, int command)
 	// while (line[i] == ' ')
 	// 	i++;
 	// ret->y = ft_atoi(line + i);
-	ret->path = NULL;
+	ret->links = NULL;
 	ret->wait = 0;
 	ret->ant = 0;
 	ft_memdel((void**)&line);
@@ -89,7 +89,7 @@ int				read_file(t_lemin *l)
 		}
 		else if (is_link(l->rooms, line) && (l->rooms_kewl = 1))
 		{
-			l->path = ft_lstpush(l->path, ft_strsplit(line, '-'));
+			l->links = ft_lstpush(l->links, ft_strsplit(line, '-'));
 			ft_memdel((void**)&line);
 		}
 		else

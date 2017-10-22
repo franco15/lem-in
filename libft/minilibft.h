@@ -77,7 +77,9 @@ char				*ft_lst_to_s(t_lst *lst);
 /*
 ** lst2.c
 */
-t_list		*ft_lstpush(t_list *first, void *content);
+t_list		*ft_lstpush(t_list *list, void *content);
+void		ft_lstforeach(t_list *lst, void (*f)());
+void		ft_lst_rec_free(t_list *list);
 
 /*
 ** mem.c
