@@ -12,14 +12,14 @@
 
 #include "lem_in.h"
 
-void			print_ant(t_lemin *l, t_room *next, int i)
+void			print_ant(t_lemin *l, t_ant *ants, t_room *next)
 {
-	l->ants[i].room->ant = 0;
-	l->ants[i].prev = l->ants[i].room;
-	l->ants[i].room = next;
-	l->ants[i].room->ant = 1;
+	ants->room->ant = 0;
+	ants->prev = ants->room;
+	ants->room = next;
+	ants->room->ant = 1;
 	l->moves++;
-	ft_printf("L%d-%s | %d |", l->ants[i].which_ant, l->ants[i].room->name, l->ants[i].room->command);
+	ft_printf("L%d-%s ", ants->which_ant, ants->room->name);
 	// sleep(1);
 }
 

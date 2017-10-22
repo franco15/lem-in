@@ -41,5 +41,6 @@ void		lemin(t_lemin *l)
 {
 	get_room_links(l);
 	check_intel(l);
+	ft_printf("\n");
 	solve_lemin(l);
 }

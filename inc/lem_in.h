@@ -57,7 +57,7 @@ int					get_qa(void);
 ** check.c
 */
 void				check_intel(t_lemin *l);
-int					check_links(t_lemin *l, void *start);
+int			check_links(t_lemin *l, void *room, int command);
 
 /*
 ** ded.c
@@ -92,6 +92,6 @@ int					is_room(char *line);
 int					is_link(t_list *rooms, char *line);
 t_room				*get_command(t_list *rooms, int command);
 t_room				*get_room(t_list *rooms, char *room);
-void				print_ant(t_lemin *l, t_room *next, int i);
+void			print_ant(t_lemin *l, t_ant *ants, t_room *next);
 
 #endif

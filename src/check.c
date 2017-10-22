@@ -14,25 +14,25 @@
 // check rooms: checa que el nombre de cada room no incluya '-' '#' o 'L' y
 // checa que nomas exista una room con flag start y una con flag end
 
-int			check_links(t_lemin *l, void *start)
+int			check_links(t_lemin *l, void *room, int command)
 {
 	int		prev_distance;
 	int		curr_distance;
 	t_room	*curr_room;
 	t_list	*tmp;
 
-	curr_room = (t_room*)start;
-	if (curr_room->command == 2)
+	curr_room = (t_room*)room;
+	if (curr_room->command == command)
 		return (1);
 	if (curr_room->wait)
-		return (0);
+		return (-1);
 	curr_room->wait = 1;
 	curr_distance = l->qr;
 	tmp = curr_room->links;
 	while (tmp)
 	{
-		if ((prev_distance = check_links(l, tmp->content)) < curr_distance &&
-			prev_distance != -1)
+		if ((prev_distance = check_links(l, tmp->content, command)) < curr_distance
+			&& prev_distance != -1)
 			curr_distance = prev_distance + 1;
 		tmp = tmp->next;
 	}
@@ -77,7 +77,7 @@ void	check_intel(t_lemin *l)
 	start = get_command(l->rooms, 1);
 	if (start && l->links)
 	{
-		if (!check_links(l, start))
+		if (!check_links(l, start, 1))
 		{
 			ded(l);
 			exit(1);

@@ -12,7 +12,7 @@
 
 #include "lem_in.h"
 
-static void	confirm_ant(t_lemin *l, int i)
+static void	confirm_ant(t_lemin *l)
 {
 	int		curr_distance;
 	int		new_distance;
@@ -21,14 +21,14 @@ static void	confirm_ant(t_lemin *l, int i)
 	t_room	*next;
 
 	curr_distance = l->qr;
-	links = l->ants[i].room->links;
+	links = l->ants->room->links;
 	while (links)
 	{
 		tmp = (t_room*)links->content;
 		if ((tmp->command == 2 || !tmp->ant) && tmp != l->ants->prev)
 		{
-			new_distance = check_links(l, tmp);
-			if (new_distance < curr_distance)
+			new_distance = check_links(l, tmp, 2);
+			if (new_distance != -1 && new_distance < curr_distance)
 			{
 				curr_distance = new_distance;
 				next = tmp;
@@ -37,7 +37,7 @@ static void	confirm_ant(t_lemin *l, int i)
 		links = links->next;
 	}
 	if (curr_distance < l->qr)
-		print_ant(l, next, i);
+		print_ant(l, l->ants, next);
 }
 
 static int	can_move(t_ant *ant, int i)
@@ -104,7 +104,9 @@ static void	check_ants(t_lemin *l)
 			if (can_move(l->ants, i))
 			{
 				quit = 0;
-				confirm_ant(l, i);
+				l->ants += i;
+				confirm_ant(l);
+				l->ants -= i;
 				// break ;
 			}
 			i++;
