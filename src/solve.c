@@ -12,8 +12,36 @@
 
 #include "lem_in.h"
 
+static void	check_ants(t_lemin *l)
+{
+	(void)l;
+}
+
+static void	reset_ants(t_ant *ants, int qa)
+{
+	(void)ants;
+	(void)qa;
+}
+
+static int	conti_nue(t_ant *ants, int qa)
+{
+	int	i;
+
+	i = 0;
+	while (i < qa)
+	{
+		if (ants[i].room->command == 2)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 void	solve_lemin(t_lemin *l)
 {
-	printf("solve\n");
-	(void)l;
+	while (conti_nue(l->ants, l->qa))
+	{
+		reset_ants(l->ants, l->qa);
+		check_ants(l);
+	}
 }
