@@ -62,7 +62,10 @@ static int	check_rooms(t_list *rooms)
 		if (tmp->command == 1)
 			start++;
 		if (tmp->command == 2)
+		{
+			printf("%s\n", tmp->name);
 			end++;
+		}
 		trooms = trooms->next;
 	}
 	if (start != 1 && end != 1)

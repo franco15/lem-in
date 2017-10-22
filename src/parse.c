@@ -26,7 +26,7 @@ t_ant			*start_ants(t_list *rooms, int ants)
 	while (i < ants)
 	{
 		ret[i].room = get_command(rooms, 1);
-		ret[i].did_turn = 0;
+		ret[i].did_move = 0;
 		ret[i].which_ant = i + 1;
 		i++;
 	}
@@ -76,9 +76,15 @@ int				read_file(t_lemin *l)
 		if (line[0] == '#')
 		{
 			if (line[1] == '#' && ft_strequ(line, "##start"))
+			{
+				printf("START\n");
 				command = 1;
+			}
 			else if (line[1] == '#' && ft_strequ(line, "##end"))
+			{
+				printf("END\n");
 				command = 2;
+			}
 			ft_memdel((void**)&line);
 		}
 		else if (is_room(line) && !l->rooms_kewl)
