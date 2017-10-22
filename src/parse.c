@@ -79,12 +79,12 @@ int				read_file(t_lemin *l)
 				command = 1;
 			else if (line[1] == '#' && ft_strequ(line, "##end"))
 				command = 2;
-			else
-				ft_memdel((void**)&line);
+			ft_memdel((void**)&line);
 		}
 		else if (is_room(line) && !l->rooms_kewl)
 		{
 			l->rooms = ft_lstpush(l->rooms, start_room(line, command));
+			l->qr++;
 			command = 0;
 		}
 		else if (is_link(l->rooms, line) && (l->rooms_kewl = 1))

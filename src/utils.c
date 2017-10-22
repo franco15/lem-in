@@ -12,14 +12,14 @@
 
 #include "lem_in.h"
 
-t_room			*get_command(t_list *rooms, int i)
+t_room			*get_command(t_list *rooms, int command)
 {
 	t_room	*ret;
 
 	while (rooms)
 	{
 		ret = (t_room*)rooms->content;
-		if (ret->command == i)
+		if (ret->command == command)
 			return (ret);
 		rooms = rooms->next;
 	}
@@ -44,6 +44,7 @@ int				is_link(t_list *rooms, char *line)
 {
 	char	**doors;
 
+	doors = NULL;
 	if (ft_strchr(line, '-'))
 	{
 		doors = ft_strsplit(line, '-');

@@ -14,6 +14,7 @@
 
 static void	start_lemin(t_lemin *l)
 {
+	l->qr = 0;
 	l->moves = 0;
 	l->rooms = NULL;
 	l->links = NULL;

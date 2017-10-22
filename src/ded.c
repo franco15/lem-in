@@ -27,7 +27,7 @@ static void	room_ded(void *room)
 	tmp = (t_room*)room;
 	ft_memdel((void**)&tmp->name);
 	ft_lst_rec_free(tmp->links);
-	ft_memdel((void**)room);
+	ft_memdel((void**)&room);
 }
 
 void		ded(t_lemin *l)
