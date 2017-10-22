@@ -11,7 +11,7 @@ INC_DIR = ./inc/
 LIBFT_DIR = ./libft/
 
 # Source files and object files
-SRC_FILES = ants.c check.c ded.c lemin.c main.c parse.c utils.c
+SRC_FILES = ants.c check.c ded.c lemin.c main.c parse.c solve.c utils.c
 OBJ_FILES = $(SRC_FILES:.c=.o)
 
 # Paths

@@ -80,6 +80,11 @@ int					read_file(t_lemin *l);
 t_ant				*start_ants(t_list *rooms, int ants);
 
 /*
+** solve.c
+*/
+void				solve_lemin(t_lemin *l);
+
+/*
 ** utils.c
 */
 int					is_room(char *line);
