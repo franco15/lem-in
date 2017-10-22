@@ -44,6 +44,9 @@ typedef struct		s_lemin
 	t_list			*links; // list of links
 }					t_lemin;
 
+// start = 1
+// end = 2
+
 /*
 ** ants.c
 */
