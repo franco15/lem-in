@@ -12,11 +12,15 @@
 
 #include "lem_in.h"
 
-void			print_ant(t_lemin *l, t_room *next)
+void			print_ant(t_lemin *l, t_room *next, int i)
 {
-	printf("ant: %s\n", l->ants->room->name);
-	l->ants->prev = l->ants->room;
-	l->ants->room = next;
+	l->ants[i].room->ant = 0;
+	l->ants[i].prev = l->ants[i].room;
+	l->ants[i].room = next;
+	l->ants[i].room->ant = 1;
+	l->moves++;
+	ft_printf("L%d-%s | %d |", l->ants[i].which_ant, l->ants[i].room->name, l->ants[i].room->command);
+	// sleep(1);
 }
 
 t_room			*get_command(t_list *rooms, int command)

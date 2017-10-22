@@ -20,9 +20,8 @@ static void	confirm_ant(t_lemin *l, int i)
 	t_room	*tmp;
 	t_room	*next;
 
-	(void)i;
 	curr_distance = l->qr;
-	links = l->ants->room->links;
+	links = l->ants[i].room->links;
 	while (links)
 	{
 		tmp = (t_room*)links->content;
@@ -38,7 +37,7 @@ static void	confirm_ant(t_lemin *l, int i)
 		links = links->next;
 	}
 	if (curr_distance < l->qr)
-		print_ant(l, next);
+		print_ant(l, next, i);
 }
 
 static int	can_move(t_ant *ant, int i)
@@ -93,19 +92,24 @@ static int	conti_nue(t_ant *ants, int qa)
 static void	check_ants(t_lemin *l)
 {
 	int	i;
+	int	quit;
 
-	while (!conti_nue(l->ants, l->qa))
+	quit = 1;
+	while (quit && !conti_nue(l->ants, l->qa))
 	{
 		i = 0;
 		while (i < l->qa)
 		{
+			// printf("hola\n");
 			if (can_move(l->ants, i))
 			{
+				quit = 0;
 				confirm_ant(l, i);
-				break ;
+				// break ;
 			}
 			i++;
 		}
+		ft_printf("\n");
 	}
 }
 
