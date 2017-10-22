@@ -14,9 +14,31 @@
 
 static void	confirm_ant(t_lemin *l, int i)
 {
-	// printf("confirm_ant\n");
-	(void)l;
+	int		curr_distance;
+	int		new_distance;
+	t_list	*links;
+	t_room	*tmp;
+	t_room	*next;
+
 	(void)i;
+	curr_distance = l->qr;
+	links = l->ants->room->links;
+	while (links)
+	{
+		tmp = (t_room*)links->content;
+		if ((tmp->command == 2 || !tmp->ant) && tmp != l->ants->prev)
+		{
+			new_distance = check_links(l, tmp);
+			if (new_distance < curr_distance)
+			{
+				curr_distance = new_distance;
+				next = tmp;
+			}
+		}
+		links = links->next;
+	}
+	if (curr_distance < l->qr)
+		print_ant(l, next);
 }
 
 static int	can_move(t_ant *ant, int i)
@@ -36,10 +58,9 @@ static int	can_move(t_ant *ant, int i)
 	while (yes && links)
 	{
 		room = (t_room*)links->content;
-		if ((!room->ant && (room->command && room->command != 1) &&
+		if ((!room->ant && (room->command != 1) &&
 			room != ant->prev) || room->command == 2)
 		{
-			printf("hola %d\n", room->command);
 			it_can = 1;
 			break ;
 		}
@@ -53,48 +74,46 @@ static int	can_move(t_ant *ant, int i)
 static int	conti_nue(t_ant *ants, int qa)
 {
 	int	i;
+	int	ret;
 
 	i = 0;
+	ret = 1;
 	while (i < qa)
 	{
-		if (ants[i].room->command == 2)
+		if (ants[i].room->command != 2)
 		{
-			printf("ded continue\n");
-			return (0);
+			ret = 0;
+			break ;
 		}
 		i++;
 	}
-	return (1);
+	return (ret);
 }
 
 static void	check_ants(t_lemin *l)
 {
 	int	i;
 
-	while (conti_nue(l->ants, l->qa))
+	while (!conti_nue(l->ants, l->qa))
 	{
 		i = 0;
 		while (i < l->qa)
 		{
-			// printf("dedadsd\n");
 			if (can_move(l->ants, i))
 			{
-				// printf("%d\n", i);
 				confirm_ant(l, i);
 				break ;
-				// printf("smn\n");
 			}
 			i++;
 		}
 	}
-	// printf("ded\n");
 }
 
 void	solve_lemin(t_lemin *l)
 {
 	int	i;
 
-	while (conti_nue(l->ants, l->qa))
+	while (!conti_nue(l->ants, l->qa))
 	{
 		i = 0;
 		while (i < l->qa)

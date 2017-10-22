@@ -29,7 +29,7 @@ typedef struct		t_room
 typedef struct		s_ant
 {
 	int				which_ant;
-	int				did_turn;
+	int				did_move;
 	t_room			*room;
 	t_room			*prev;
 }					t_ant;
@@ -56,7 +56,8 @@ int					get_qa(void);
 /*
 ** check.c
 */
-void	check_intel(t_lemin *l);
+void				check_intel(t_lemin *l);
+int					check_links(t_lemin *l, void *start);
 
 /*
 ** ded.c
@@ -91,5 +92,6 @@ int					is_room(char *line);
 int					is_link(t_list *rooms, char *line);
 t_room				*get_command(t_list *rooms, int command);
 t_room				*get_room(t_list *rooms, char *room);
+void				print_ant(t_lemin *l, t_room *next);
 
 #endif

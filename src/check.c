@@ -14,7 +14,7 @@
 // check rooms: checa que el nombre de cada room no incluya '-' '#' o 'L' y
 // checa que nomas exista una room con flag start y una con flag end
 
-static int	check_links(t_lemin *l, void *start)
+int			check_links(t_lemin *l, void *start)
 {
 	int		prev_distance;
 	int		curr_distance;
@@ -62,10 +62,7 @@ static int	check_rooms(t_list *rooms)
 		if (tmp->command == 1)
 			start++;
 		if (tmp->command == 2)
-		{
-			printf("%s\n", tmp->name);
 			end++;
-		}
 		trooms = trooms->next;
 	}
 	if (start != 1 && end != 1)

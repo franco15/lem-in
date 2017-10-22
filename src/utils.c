@@ -12,6 +12,13 @@
 
 #include "lem_in.h"
 
+void			print_ant(t_lemin *l, t_room *next)
+{
+	printf("ant: %s\n", l->ants->room->name);
+	l->ants->prev = l->ants->room;
+	l->ants->room = next;
+}
+
 t_room			*get_command(t_list *rooms, int command)
 {
 	t_room	*ret;
