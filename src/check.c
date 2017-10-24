@@ -63,9 +63,9 @@ static int	check_rooms(t_list *rooms)
 			end++;
 		trooms = trooms->next;
 	}
-	if (start != 1 && end != 1)
-		return (0);
-	return (1);
+	if (start == 1 && end == 1)
+		return (1);
+	return (0);
 }
 
 void	check_intel(t_lemin *l)
@@ -74,16 +74,8 @@ void	check_intel(t_lemin *l)
 
 	start = get_command(l->rooms, 1);
 	if (start && l->links)
-	{
 		if (!check_links(l, start, 1))
-		{
-			ded(l);
-			exit(1);
-		}
-	}
+			lemin_error("ded: probably no path to reach end");
 	if (!check_rooms(l->rooms))
-	{
-		ded(l);
-		exit(1);
-	}
+		lemin_error("ded: check that rooms are kewl (specially start/end)");
 }

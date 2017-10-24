@@ -45,7 +45,7 @@ static t_room	*start_room(char *line, int command)
 	ret->links = NULL;
 	ret->wait = 0;
 	ret->ant = 0;
-	ft_memdel((void**)&line);
+	// ft_memdel((void**)&line);
 	return (ret);
 }
 
@@ -65,7 +65,7 @@ int				read_file(t_lemin *l)
 				command = 1;
 			else if (line[1] == '#' && ft_strequ(line, "##end"))
 				command = 2;
-			ft_memdel((void**)&line);
+			// ft_memdel((void**)&line);
 		}
 		else if (is_room(line) && !l->rooms_kewl)
 		{
@@ -76,10 +76,11 @@ int				read_file(t_lemin *l)
 		else if (is_link(l->rooms, line) && (l->rooms_kewl = 1))
 		{
 			l->links = ft_lstpush(l->links, ft_strsplit(line, '-'));
-			ft_memdel((void**)&line);
+			// ft_memdel((void**)&line);
 		}
 		else
 			break ;
+		ft_memdel((void**)&line);
 	}
 	ft_memdel((void**)&line);
 	return (i);
