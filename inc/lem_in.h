@@ -17,8 +17,6 @@
 
 typedef struct		t_room
 {
-	// int				x;
-	// int				y;
 	int				command;
 	int				wait;
 	int				ant;
@@ -52,12 +50,14 @@ typedef struct		s_lemin
 ** ants.c
 */
 int					get_qa(void);
+t_lemin				*retrieve_lemin(t_lemin *l);
+void				lemin_error(char *str);
 
 /*
 ** check.c
 */
 void				check_intel(t_lemin *l);
-int			check_links(t_lemin *l, void *room, int command);
+int					check_links(t_lemin *l, void *room, int command);
 
 /*
 ** ded.c
@@ -92,6 +92,6 @@ int					is_room(char *line);
 int					is_link(t_list *rooms, char *line);
 t_room				*get_command(t_list *rooms, int command);
 t_room				*get_room(t_list *rooms, char *room);
-void			print_ant(t_lemin *l, t_ant *ants, t_room *next);
+void				print_ant(t_lemin *l, t_ant *ants, t_room *next);
 
 #endif

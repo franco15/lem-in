@@ -20,7 +20,6 @@ void			print_ant(t_lemin *l, t_ant *ants, t_room *next)
 	ants->room->ant = 1;
 	l->moves++;
 	ft_printf("L%d-%s ", ants->which_ant, ants->room->name);
-	// sleep(1);
 }
 
 t_room			*get_command(t_list *rooms, int command)

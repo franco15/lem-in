@@ -19,10 +19,7 @@ t_ant			*start_ants(t_list *rooms, int ants)
 
 	i = 0;
 	if (!(ret = (t_ant*)ft_memalloc(sizeof(t_ant) * ants)))
-	{
-		printf("ded\n");
-		exit(0);
-	}
+		lemin_error("ded: @ start ants");
 	while (i < ants)
 	{
 		ret[i].room = get_command(rooms, 1);
@@ -40,22 +37,11 @@ static t_room	*start_room(char *line, int command)
 
 	i = 0;
 	if (!(ret = (t_room*)ft_memalloc(sizeof(t_room))))
-	{
-		printf("ded\n");
-		exit(0);
-	}
+		lemin_error("ded @ start_room");
 	while (line[i] != ' ')
 		i++;
 	ret->command = command;
 	ret->name = ft_strsub(line, 0, i);
-	// while (line[i] == ' ')
-	// 	i++;
-	// ret->x = ft_atoi(line + i);
-	// while (line[i] != ' ')
-	// 	i++;
-	// while (line[i] == ' ')
-	// 	i++;
-	// ret->y = ft_atoi(line + i);
 	ret->links = NULL;
 	ret->wait = 0;
 	ret->ant = 0;
@@ -76,15 +62,9 @@ int				read_file(t_lemin *l)
 		if (line[0] == '#')
 		{
 			if (line[1] == '#' && ft_strequ(line, "##start"))
-			{
-				printf("START\n");
 				command = 1;
-			}
 			else if (line[1] == '#' && ft_strequ(line, "##end"))
-			{
-				printf("END\n");
 				command = 2;
-			}
 			ft_memdel((void**)&line);
 		}
 		else if (is_room(line) && !l->rooms_kewl)

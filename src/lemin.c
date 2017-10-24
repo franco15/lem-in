@@ -28,9 +28,11 @@ static void	get_room_links(t_lemin *l)
 		{
 			link = (char**)links->content;
 			if (ft_strequ(link[0], room->name))
-				room->links = ft_lstpush(room->links, get_room(l->rooms, link[1]));
+				room->links = ft_lstpush(room->links,
+					get_room(l->rooms, link[1]));
 			if (ft_strequ(link[1], room->name))
-				room->links = ft_lstpush(room->links, get_room(l->rooms, link[0]));
+				room->links = ft_lstpush(room->links,
+					get_room(l->rooms, link[0]));
 			links = links->next;
 		}
 		rooms = rooms->next;

@@ -100,14 +100,12 @@ static void	check_ants(t_lemin *l)
 		i = 0;
 		while (i < l->qa)
 		{
-			// printf("hola\n");
 			if (can_move(l->ants, i))
 			{
 				quit = 0;
 				l->ants += i;
 				confirm_ant(l);
 				l->ants -= i;
-				// break ;
 			}
 			i++;
 		}

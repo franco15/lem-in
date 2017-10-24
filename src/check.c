@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "lem_in.h"
-// check rooms: checa que el nombre de cada room no incluya '-' '#' o 'L' y
-// checa que nomas exista una room con flag start y una con flag end
 
 int			check_links(t_lemin *l, void *room, int command)
 {
@@ -83,11 +81,6 @@ void	check_intel(t_lemin *l)
 			exit(1);
 		}
 	}
-	// if (check_paths(get_command(l->rooms, 2), l->links))
-	// {
-	// 	ded(l);
-	// 	exit(1);
-	// }
 	if (!check_rooms(l->rooms))
 	{
 		ded(l);

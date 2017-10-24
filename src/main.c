@@ -12,6 +12,25 @@
 
 #include "lem_in.h"
 
+void		lemin_error(char *str)
+{
+	t_lemin	*l;
+
+	l = retrieve_lemin(0);
+	printf("%s\n", str);
+	ded(l);
+	exit(1);
+}
+
+t_lemin		*retrieve_lemin(t_lemin *l)
+{
+	static t_lemin	*ll = NULL;
+
+	if (l)
+		ll = l;
+	return (ll);
+}
+
 static void	start_lemin(t_lemin *l)
 {
 	l->qr = 0;
@@ -19,20 +38,11 @@ static void	start_lemin(t_lemin *l)
 	l->rooms = NULL;
 	l->links = NULL;
 	if (!(l->qa = get_qa()))
-	{
-		printf("ded at qa\n");
-		return ;
-	}
+		lemin_error("ded: failed to get quantity of ants");
 	if (read_file(l) == -1)
-	{
-		printf("ded at read_file\n");
-		return ;
-	}
+		lemin_error("ded: failed to read_file");
 	if (!l->rooms || !l->links)
-	{
-		printf("ded after read_file\n");
-		return ;
-	}
+		lemin_error("ded: failed to get rooms and\\or links");
 	l->ants = start_ants(l->rooms, l->qa);
 }
 
@@ -43,7 +53,8 @@ int		main(int ac, char **av)
 	(void)ac;
 	(void)av;
 	if (!(l = (t_lemin*)ft_memalloc(sizeof(t_lemin))))
-		return (printf("ded\n"));
+		lemin_error("ded: @ first malloc");
+	retrieve_lemin(l);
 	start_lemin(l);
 	lemin(l);
 	ded(l);
