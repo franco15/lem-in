@@ -40,20 +40,20 @@ static void	confirm_ant(t_lemin *l)
 		print_ant(l, l->ants, next);
 }
 
-static int	can_move(t_ant *ant, int i)
+static int	can_move(t_ant *ant)
 {
-	int	yes;
-	int it_can;
+	int		yes;
+	int 	it_can;
 	t_list	*links;
 	t_room	*room;
 
-	if (ant[i].room->command == 2)
+	if (ant->room->command == 2)
 		return (0);
 	yes = 1;
 	it_can = 0;
-	if (ant[i].did_move)
+	if (ant->did_move)
 		yes = 0;
-	links = ant[i].room->links;
+	links = ant->room->links;
 	while (yes && links)
 	{
 		room = (t_room*)links->content;
@@ -65,9 +65,7 @@ static int	can_move(t_ant *ant, int i)
 		}
 		links = links->next;
 	}
-	if (yes && it_can)
-		return (1);
-	return (0);
+	return (yes && it_can);
 }
 
 static int	conti_nue(t_ant *ants, int qa)
@@ -77,7 +75,7 @@ static int	conti_nue(t_ant *ants, int qa)
 
 	i = 0;
 	ret = 1;
-	while (i < qa)
+	while (i < qa && ants != 0)
 	{
 		if (ants[i].room->command != 2)
 		{
@@ -94,13 +92,14 @@ static void	check_ants(t_lemin *l)
 	int	i;
 	int	quit;
 
-	quit = 1;
-	while (quit && !conti_nue(l->ants, l->qa))
+	quit = 0;
+	while (!quit && !conti_nue(l->ants, l->qa))
 	{
 		i = 0;
+		quit = 1;
 		while (i < l->qa)
 		{
-			if (can_move(l->ants, i))
+			if (can_move(l->ants + i))
 			{
 				quit = 0;
 				l->ants += i;

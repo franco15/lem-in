@@ -14,29 +14,29 @@
 
 int			check_links(t_lemin *l, void *room, int command)
 {
-	int		prev_distance;
+	int		new_distance;
 	int		curr_distance;
 	t_room	*curr_room;
 	t_list	*tmp;
 
 	curr_room = (t_room*)room;
 	if (curr_room->command == command)
-		return (1);
+		return (0);
 	if (curr_room->wait)
 		return (-1);
 	curr_room->wait = 1;
-	curr_distance = l->qr;
+	curr_distance = 2147483647;
 	tmp = curr_room->links;
 	while (tmp)
 	{
-		if ((prev_distance = check_links(l, tmp->content, command)) < curr_distance
-			&& prev_distance != -1)
-			curr_distance = prev_distance + 1;
+		if ((new_distance = check_links(l, tmp->content, command)) < curr_distance
+			&& new_distance != -1)
+			curr_distance = new_distance + 1;
 		tmp = tmp->next;
 	}
 	curr_room->wait = 0;
-	if (curr_distance == l->qr)
-		return (0);
+	if (curr_distance == 2147483647)
+		return (-1);
 	return (curr_distance);
 }
 
@@ -74,7 +74,7 @@ void	check_intel(t_lemin *l)
 
 	start = get_command(l->rooms, 1);
 	if (start && l->links)
-		if (!check_links(l, start, 1))
+		if (check_links(l, start, 1) < 0)
 			lemin_error("ded: probably no path to reach end");
 	if (!check_rooms(l->rooms))
 		lemin_error("ded: check that rooms are kewl (specially start/end)");
