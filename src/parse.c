@@ -50,13 +50,11 @@ static t_room	*start_room(char *line, int command)
 
 static int		start_end_cmds(char *line)
 {
-	static int i;
-
 	if (line[1] == '#' && ft_strequ(line, "##start"))
-		i = 1;
+		return (1);
 	else if (line[1] == '#' && ft_strequ(line, "##end"))
-		i = 2;
-	return (i);
+		return (2);
+	return (0);
 }
 
 int				read_file(t_lemin *l)
