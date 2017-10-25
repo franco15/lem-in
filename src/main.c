@@ -46,7 +46,7 @@ static void	start_lemin(t_lemin *l)
 	l->ants = start_ants(l->rooms, l->qa);
 }
 
-int		main(int ac, char **av)
+int			main(int ac, char **av)
 {
 	t_lemin	*l;
 

@@ -36,7 +36,7 @@ t_list		*ft_lstpush(t_list *list, void *content)
 	return (list);
 }
 
-void	ft_lstforeach(t_list *list, void (*f)())
+void		ft_lstforeach(t_list *list, void (*f)())
 {
 	t_list		*tmp;
 
@@ -48,7 +48,7 @@ void	ft_lstforeach(t_list *list, void (*f)())
 	}
 }
 
-void	ft_lst_rec_free(t_list *list)
+void		ft_lst_rec_free(t_list *list)
 {
 	if (list)
 	{

@@ -13,9 +13,9 @@
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
-#include "../libft/minilibft.h"
+# include "../libft/minilibft.h"
 
-typedef struct		t_room
+typedef struct		s_room
 {
 	int				command;
 	int				wait;
@@ -34,17 +34,19 @@ typedef struct		s_ant
 
 typedef struct		s_lemin
 {
-	int				qa; //quantity of ants
-	int				qr; // quantity of rooms
+	int				qa;
+	int				qr;
 	int				moves;
 	int				rooms_kewl;
-	t_ant			*ants; // list of ants
-	t_list			*rooms; //room list
-	t_list			*links; // list of links
+	t_ant			*ants;
+	t_list			*rooms;
+	t_list			*links;
 }					t_lemin;
 
-// start = 1
-// end = 2
+/*
+** start = 1
+** end = 2
+*/
 
 /*
 ** ants.c

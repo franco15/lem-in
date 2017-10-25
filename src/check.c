@@ -29,8 +29,8 @@ int			check_links(t_lemin *l, void *room, int command)
 	tmp = curr_room->links;
 	while (tmp)
 	{
-		if ((new_distance = check_links(l, tmp->content, command)) < curr_distance
-			&& new_distance != -1)
+		if ((new_distance = check_links(l, tmp->content, command)) <
+			curr_distance && new_distance != -1)
 			curr_distance = new_distance + 1;
 		tmp = tmp->next;
 	}
@@ -55,7 +55,8 @@ static int	check_rooms(t_list *rooms)
 	while (trooms)
 	{
 		tmp = (t_room*)trooms->content;
-		if (tmp->name[0] == '#' || ft_strchr(tmp->name, '-'))
+		if (tmp->name[0] == '#' || ft_strchr(tmp->name, '-') ||
+			ft_strchr(tmp->name, 'L'))
 			return (0);
 		if (tmp->command == 1)
 			start++;
@@ -68,7 +69,7 @@ static int	check_rooms(t_list *rooms)
 	return (0);
 }
 
-void	check_intel(t_lemin *l)
+void		check_intel(t_lemin *l)
 {
 	t_room	*start;
 

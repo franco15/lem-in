@@ -45,8 +45,18 @@ static t_room	*start_room(char *line, int command)
 	ret->links = NULL;
 	ret->wait = 0;
 	ret->ant = 0;
-	// ft_memdel((void**)&line);
 	return (ret);
+}
+
+static int		start_end_cmds(char *line)
+{
+	static int i;
+
+	if (line[1] == '#' && ft_strequ(line, "##start"))
+		i = 1;
+	else if (line[1] == '#' && ft_strequ(line, "##end"))
+		i = 2;
+	return (i);
 }
 
 int				read_file(t_lemin *l)
@@ -60,13 +70,7 @@ int				read_file(t_lemin *l)
 	{
 		ft_printf("%s\n", line);
 		if (line[0] == '#')
-		{
-			if (line[1] == '#' && ft_strequ(line, "##start"))
-				command = 1;
-			else if (line[1] == '#' && ft_strequ(line, "##end"))
-				command = 2;
-			// ft_memdel((void**)&line);
-		}
+			command = start_end_cmds(line);
 		else if (is_room(line) && !l->rooms_kewl)
 		{
 			l->rooms = ft_lstpush(l->rooms, start_room(line, command));
@@ -74,10 +78,7 @@ int				read_file(t_lemin *l)
 			command = 0;
 		}
 		else if (is_link(l->rooms, line) && (l->rooms_kewl = 1))
-		{
 			l->links = ft_lstpush(l->links, ft_strsplit(line, '-'));
-			// ft_memdel((void**)&line);
-		}
 		else
 			break ;
 		ft_memdel((void**)&line);

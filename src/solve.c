@@ -43,7 +43,7 @@ static void	confirm_ant(t_lemin *l)
 static int	can_move(t_ant *ant)
 {
 	int		yes;
-	int 	it_can;
+	int		it_can;
 	t_list	*links;
 	t_room	*room;
 
@@ -112,7 +112,7 @@ static void	check_ants(t_lemin *l)
 	}
 }
 
-void	solve_lemin(t_lemin *l)
+void		solve_lemin(t_lemin *l)
 {
 	int	i;
 
