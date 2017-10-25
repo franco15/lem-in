@@ -69,6 +69,29 @@ static int	check_rooms(t_list *rooms)
 	return (0);
 }
 
+static int	no_end(t_list *rooms, t_list *links)
+{
+	int		ded;
+	char	**tmp;
+	t_list	*tl;
+	t_room	*end;
+
+	ded = 0;
+	tl = links;
+	while (tl)
+	{
+		tmp = (char**)tl->content;
+		end = get_command(rooms, 2);
+		if (ft_strequ(tmp[0], end->name) ||
+			ft_strequ(tmp[1], end->name))
+			ded++;
+		tl = tl->next;
+	}
+	if (!ded)
+		return (0);
+	return (1);
+}
+
 void		check_intel(t_lemin *l)
 {
 	t_room	*start;
@@ -79,4 +102,6 @@ void		check_intel(t_lemin *l)
 			lemin_error("ded: probably no path to reach end");
 	if (!check_rooms(l->rooms))
 		lemin_error("ded: check that rooms are kewl (specially start/end)");
+	if (!no_end(l->rooms, l->links))
+		lemin_error("ded: probably no link to end");
 }

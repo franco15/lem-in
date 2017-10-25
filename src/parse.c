@@ -68,7 +68,7 @@ int				read_file(t_lemin *l)
 	{
 		ft_printf("%s\n", line);
 		if (line[0] == '#')
-			command = start_end_cmds(line);
+			command = start_end_cmds(line) ? start_end_cmds(line) : command;
 		else if (is_room(line) && !l->rooms_kewl)
 		{
 			l->rooms = ft_lstpush(l->rooms, start_room(line, command));

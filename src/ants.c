@@ -19,6 +19,7 @@ int		get_qa(void)
 
 	if (get_next_line(0, &line))
 	{
+		ft_printf("%s\n", line);
 		while (line[0] == '#')
 		{
 			ft_memdel((void**)&line);
@@ -31,6 +32,5 @@ int		get_qa(void)
 	}
 	ret = (line && *line != '\0') ? ft_atoi(line) : 0;
 	ft_memdel((void**)&line);
-	ft_printf("%d\n", ret);
 	return (ret);
 }
